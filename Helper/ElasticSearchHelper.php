@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Helper;
+namespace ElasticSearchBundle\Helper;
 
 use Elastica\Client;
 

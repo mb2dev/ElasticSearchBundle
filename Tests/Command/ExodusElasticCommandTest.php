@@ -1,12 +1,12 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Command;
+namespace ElasticSearchBundle\Tests\Command;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
-use Headoo\ElasticSearchBundle\Tests\DataFixtures\LoadData;
+use ElasticSearchBundle\Tests\DataFixtures\LoadData;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -37,7 +37,7 @@ class ExodusElasticCommandTest extends KernelTestCase
     public function testCommandFakeEntity()
     {
         $options1 = [
-            'command'  => 'headoo:elastic:exodus',
+            'command'  => 'elastic:exodus',
             '--batch'  => 10,
             '--dry-run' => false,
             '--verbose' => true,
@@ -52,7 +52,7 @@ class ExodusElasticCommandTest extends KernelTestCase
     public function testCommandWrongType()
     {
         $options1 = [
-            'command'  => 'headoo:elastic:exodus',
+            'command'  => 'elastic:exodus',
             '--batch'  => 10,
             '--type'   => 'UnknownType',
             '--dry-run' => true,
@@ -87,13 +87,13 @@ class ExodusElasticCommandTest extends KernelTestCase
         $executor->execute($loader->getFixtures());
 
         # Populate ES
-        $options4['command'] = 'headoo:elastic:populate';
+        $options4['command'] = 'elastic:populate';
         $options4['--reset'] = true;
         $options4['--type'] = 'FakeNoAutoEventEntity';
         $this->application->run(new ArrayInput($options4));
 
         # Remove one entity in Doctrine
-        $entity = $this->entityManager->getRepository('\Headoo\ElasticSearchBundle\Tests\Entity\FakeEntity')->findOneBy([]);
+        $entity = $this->entityManager->getRepository('\ElasticSearchBundle\Tests\Entity\FakeEntity')->findOneBy([]);
         $this->entityManager->remove($entity);
         $this->entityManager->flush($entity);
     }

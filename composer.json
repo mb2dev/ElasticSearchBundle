@@ -1,16 +1,10 @@
 {
-    "name": "headoo/elasticsearch-bundle",
+    "name": "elasticsearch-bundle",
     "type": "symfony-bundle",
     "description": "ElasticSearch Bundle",
-    "homepage": "https://github.com/Headoo/ElasticSearchBundle",
-    "keywords": ["headoo", "elastic", "elasticsearch", "nosql"],
+    "homepage": "https://github.com/ElasticSearchBundle",
+    "keywords": ["elastic", "elasticsearch", "nosql"],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Headoo",
-            "homepage": "http://headoo.com"
-        }
-    ],
     "require": {
         "php": ">=7.0",
         "symfony/framework-bundle": "~2.8|~3.0",
@@ -28,6 +22,6 @@
         "codeclimate/php-test-reporter": "dev-master"
 	},
     "autoload": {
-        "psr-4": {"Headoo\\ElasticSearchBundle\\": ""}
+        "psr-4": {"ElasticSearchBundle\\": ""}
     }
 }

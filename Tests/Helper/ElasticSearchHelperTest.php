@@ -1,12 +1,12 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Helper;
+namespace ElasticSearchBundle\Tests\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ElasticSearchHelperTest extends KernelTestCase
 {
-    /** @var \Headoo\ElasticSearchBundle\Helper\ElasticSearchHelper */
+    /** @var \ElasticSearchBundle\Helper\ElasticSearchHelper */
     private $elasticSearchHelper;
 
     /**
@@ -16,7 +16,7 @@ class ElasticSearchHelperTest extends KernelTestCase
     {
         parent::setUp();
         self::bootKernel();
-        $this->elasticSearchHelper = static::$kernel->getContainer()->get('headoo.elasticsearch.helper');
+        $this->elasticSearchHelper = static::$kernel->getContainer()->get('elasticsearch.helper');
     }
 
     public function testClientConnection()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Event;
+namespace ElasticSearchBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 

@@ -1,11 +1,10 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\DataFixtures;
+namespace ElasticSearchBundle\Tests\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-
-use Headoo\ElasticSearchBundle\Tests\Entity\FakeEntity;
+use ElasticSearchBundle\Tests\Entity\FakeEntity;
 
 class LoadData implements FixtureInterface
 {

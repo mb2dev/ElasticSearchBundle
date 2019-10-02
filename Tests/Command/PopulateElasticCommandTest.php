@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Command;
+namespace ElasticSearchBundle\Tests\Command;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query;
 use Elastica\Search;
-use Headoo\ElasticSearchBundle\Tests\DataFixtures\LoadData;
+use ElasticSearchBundle\Tests\DataFixtures\LoadData;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 class PopulateElasticCommandTest extends KernelTestCase
 {
 
-    /** @var \Headoo\ElasticSearchBundle\Helper\ElasticSearchHelper */
+    /** @var \ElasticSearchBundle\Helper\ElasticSearchHelper */
     private $elasticSearchHelper;
 
     /** @var EntityManager */
@@ -35,7 +35,7 @@ class PopulateElasticCommandTest extends KernelTestCase
         self::bootKernel();
 
         $this->entityManager = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $this->elasticSearchHelper = static::$kernel->getContainer()->get('headoo.elasticsearch.helper');
+        $this->elasticSearchHelper = static::$kernel->getContainer()->get('elasticsearch.helper');
         $this->application = new Application(self::$kernel);
         $this->application->setAutoExit(false);
 
@@ -45,7 +45,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommand1()
     {
         $options1 = [
-            'command' => 'headoo:elastic:populate',
+            'command' => 'elastic:populate',
             '--reset' => true,
             '--env'   => 'prod',
             '--quiet' => true,
@@ -63,7 +63,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommand2()
     {
         $options2 = [
-            'command' => 'headoo:elastic:populate',
+            'command' => 'elastic:populate',
             '--reset' => true,
             '--limit' => 10,
         ];
@@ -80,7 +80,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommand3()
     {
         $options3 = [
-            'command'  => 'headoo:elastic:populate',
+            'command'  => 'elastic:populate',
             '--reset'  => true,
             '--offset' => 10,
         ];
@@ -97,7 +97,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommand4()
     {
         $options4 = [
-            'command' => 'headoo:elastic:populate',
+            'command' => 'elastic:populate',
             '--reset' => true,
             '--type'  => 'FakeEntity'
         ];
@@ -114,7 +114,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommandWhereId()
     {
         $options4 = [
-            'command' => 'headoo:elastic:populate',
+            'command' => 'elastic:populate',
             '--type'  => 'FakeEntity',
             '--where' => 'id',
             '--id'    => 23,
@@ -127,7 +127,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommandRunParallel()
     {
         $optionsRunParallel = [
-            'command' => 'headoo:elastic:populate',
+            'command' => 'elastic:populate',
             '--reset' => true,
             '--type'  => 'FakeEntity',
             '--batch' => '4',
@@ -146,7 +146,7 @@ class PopulateElasticCommandTest extends KernelTestCase
     public function testCommandWrongType()
     {
         $options1 = [
-            'command'  => 'headoo:elastic:populate',
+            'command'  => 'elastic:populate',
             '--type'   => 'UnknownType',
         ];
 
