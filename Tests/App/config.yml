@@ -6,7 +6,7 @@ imports:
     - { resource: elastic.php }
 
 
-headoo_elastic_search:
+elastic_search:
     connections: %elastica_connections%
     mappings: %elastica_mappings%
 
@@ -26,10 +26,10 @@ doctrine:
                 mappings:
                     custom_mapping:
                         type: annotation
-                        prefix: Headoo\ElasticSearchBundle\Tests\Entity\FakeEntity
+                        prefix: ElasticSearchBundle\Tests\Entity\FakeEntity
                         dir: "%kernel.root_dir%/../Entity/"
                         is_bundle: false
 
 services:
     elastic.fakeentity.transformer:
-        class: Headoo\ElasticSearchBundle\Tests\Transformer\FakeEntityTransformer
+        class: ElasticSearchBundle\Tests\Transformer\FakeEntityTransformer

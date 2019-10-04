@@ -10,7 +10,7 @@ class AppKernel extends Kernel
         return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Headoo\ElasticSearchBundle\HeadooElasticSearchBundle(),
+            new ElasticSearchBundle\ElasticSearchBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
         );
     }

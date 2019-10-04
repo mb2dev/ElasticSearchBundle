@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Helper;
+namespace ElasticSearchBundle\Helper;
 
 use Elastica\Client;
 
@@ -25,7 +25,9 @@ class ElasticSearchHelper
     {
         $elasticaClient = new Client([
             'host' => $this->elasticaConfig[$connectionName]['host'],
-            'port' => $this->elasticaConfig[$connectionName]['port']
+            'port' => $this->elasticaConfig[$connectionName]['port'],
+            'timeout' => $this->elasticaConfig[$connectionName]['timeout'],
+            'connectTimeout' => $this->elasticaConfig[$connectionName]['connectTimeout']
         ]);
 
         return $elasticaClient;
@@ -35,7 +37,7 @@ class ElasticSearchHelper
      * @param array $servers
      * @return \Elastica\Client
      */
-    public function getCluster(array $servers)
+    static public function getCluster(array $servers)
     {
         $cluster = new Client([
             'servers' => [$servers]
@@ -44,4 +46,15 @@ class ElasticSearchHelper
         return $cluster;
     }
 
+    /**
+     * @param Client $elasticaClient
+     * @return bool
+     */
+    static public function isConnected(\Elastica\Client $elasticaClient)
+    {
+        $status = $elasticaClient->getStatus();
+        $status->refresh();
+
+        return true;
+    }
 }

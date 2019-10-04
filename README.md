@@ -1,10 +1,6 @@
 ElasticSearchBundle
 =========
 
-[![Build Status](https://travis-ci.org/Headoo/ElasticSearchBundle.svg?branch=master)](https://travis-ci.org/Headoo/ElasticSearchBundle)
-[![Code Climate](https://codeclimate.com/github/Headoo/ElasticSearchBundle/badges/gpa.svg)](https://codeclimate.com/github/Headoo/ElasticSearchBundle)
-[![Latest Stable Version](https://poser.pugx.org/headoo/elasticsearch-bundle/v/stable)](https://packagist.org/packages/headoo/elasticsearch-bundle)
-[![codecov](https://codecov.io/gh/Headoo/ElasticSearchBundle/branch/master/graph/badge.svg)](https://codecov.io/gh/Headoo/ElasticSearchBundle)
 
 ElasticSearchBundle is a Symfony2/3 Bundle designed for simply use ElasticSearch 5.x with Doctrine 2.x
 
@@ -13,11 +9,11 @@ ElasticSearchBundle is a Symfony2/3 Bundle designed for simply use ElasticSearch
 Via Composer
 
 ``` bash
-$ composer require headoo/elasticsearch-bundle
+$ composer require elasticsearch-bundle
 ```
 or in composer.json file
 ``` bash
-"headoo/elasticsearch-bundle": "dev-master"
+"elasticsearch-bundle": "dev-master"
 ```
 
 Register the bundle in `app/AppKernel.php`:
@@ -27,7 +23,7 @@ public function registerBundles()
 {
     return array(
         // ...
-        new Headoo\ElasticSearchBundle\HeadooElasticSearchBundle(),
+        new ElasticSearchBundle\ElasticSearchBundle(),
         // ...
     );
 }
@@ -43,7 +39,7 @@ And we will linked this to a PHP config. You can use what you want. I prefer thi
 ``` yaml
 imports:
     - { resource: elastic.php }
-headoo_elastic_search:
+elastic_search:
     connections: %elastica_connections%
     mappings: %elastica_mappings%
 services:
@@ -236,13 +232,13 @@ class YourEntityClassName
 
 If auto_event is set, you have nothing to do for creation, update and deletion of your entities.
 
-You can begin to call Elastic with HeadooElasticService and Ruflin. Example in a Controller.
+You can begin to call Elastic with ElasticService and Ruflin. Example in a Controller.
 
 ```php
     use Elastica\Query;
     use Elastica\Search;
 
-    $elasticClient           = $this->container->get('headoo.elasticsearch.helper')->getClient('localhost');
+    $elasticClient           = $this->container->get('elasticsearch.helper')->getClient('localhost');
     $search                  = new Search($elasticClient);
     //We will search in our index defined in mapping
     $search->addIndex('indexname');
@@ -258,12 +254,12 @@ You can begin to call Elastic with HeadooElasticService and Ruflin. Example in a
 For more information about querying Elastic, look at [Ruflin elastica.io](http://elastica.io)
 
 
-If auto_event is not set, you can listen `headoo.elasticsearch.event` like this :
+If auto_event is not set, you can listen `elasticsearch.event` like this :
 ```yaml
 name.elasticsearch.listener:
     class: Name\NameBundle\EventListener\ElasticSearchListener
     tags:
-        - { name: kernel.event_listener, event: headoo.elasticsearch.event, method: onElasticEntityAction }
+        - { name: kernel.event_listener, event: elasticsearch.event, method: onElasticEntityAction }
 ``` 
 
 And in your EventListener Class
@@ -272,7 +268,7 @@ And in your EventListener Class
 
 namespace Name\NameBundle\EventListener;
 
-use Headoo\ElasticSearchBundle\Event\ElasticSearchEvent;
+use ElasticSearchBundle\Event\ElasticSearchEvent;
 
 class ElasticSearchListener
 {
@@ -291,7 +287,7 @@ class ElasticSearchListener
 
 ## Command for populate
 ###### CAREFULL: You have to set --reset flag on command FIRST TIME you populate a type or all types.
-After configuration of your entities, you maybe want make them available on ElasticSearch. You have to use `php app/console headoo:elastic:populate`. Differents options are available :
+After configuration of your entities, you maybe want make them available on ElasticSearch. You have to use `php app/console elastic:populate` for Symfony 2 or `php bin/console elastic:populate` for Symfony 3. Differents options are available :
 
 * --limit=int : Limit of your collection
 * --offset=int : Offset of your collection 
@@ -320,7 +316,7 @@ If you discover a security vulnerability, please email instead of using the issu
 
 ### How to test
 
-1. clone repo : `$ sudo git clone https://github.com/Headoo/ElasticSearchBundle.git`
+1. clone repo : `$ sudo git clone https://github.com/ElasticSearchBundle.git`
 2. go into directory : `$ cd ElasticSearchBundle/`
 3. install composer as explained here : https://getcomposer.org/download/
 4. launch composer update : `$ ./composer.phar update`

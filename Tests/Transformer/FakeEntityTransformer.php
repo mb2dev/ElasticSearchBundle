@@ -1,7 +1,9 @@
 <?php
-namespace Headoo\ElasticSearchBundle\Tests\Transformer;
+
+namespace ElasticSearchBundle\Tests\Transformer;
+
 use Elastica\Document;
-use Headoo\ElasticSearchBundle\Tests\Entity\FakeEntity;
+use ElasticSearchBundle\Tests\Entity\FakeEntity;
 
 class FakeEntityTransformer
 {

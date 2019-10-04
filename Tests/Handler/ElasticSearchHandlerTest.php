@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Handler;
+namespace ElasticSearchBundle\Tests\Handler;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -8,7 +8,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query;
 use Elastica\Search;
-use Headoo\ElasticSearchBundle\Tests\DataFixtures\LoadData;
+use ElasticSearchBundle\Tests\DataFixtures\LoadData;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -16,12 +16,12 @@ use Symfony\Component\Console\Input\ArrayInput;
 class ElasticSearchHandlerTest extends KernelTestCase
 {
     /**
-     * @var \Headoo\ElasticSearchBundle\Handler\ElasticSearchHandler
+     * @var \ElasticSearchBundle\Handler\ElasticSearchHandler
      */
     private $elasticSearchHandler;
 
     /**
-     * @var \Headoo\ElasticSearchBundle\Helper\ElasticSearchHelper
+     * @var \ElasticSearchBundle\Helper\ElasticSearchHelper
      */
     private $elasticSearchHelper;
 
@@ -45,8 +45,8 @@ class ElasticSearchHandlerTest extends KernelTestCase
         self::bootKernel();
 
         $this->entityManager           = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $this->elasticSearchHandler    = static::$kernel->getContainer()->get('headoo.elasticsearch.handler');
-        $this->elasticSearchHelper     = static::$kernel->getContainer()->get('headoo.elasticsearch.helper');
+        $this->elasticSearchHandler    = static::$kernel->getContainer()->get('elasticsearch.handler');
+        $this->elasticSearchHelper     = static::$kernel->getContainer()->get('elasticsearch.helper');
 
         $this->application = new Application(self::$kernel);
         $this->application->setAutoExit(false);
@@ -119,7 +119,7 @@ class ElasticSearchHandlerTest extends KernelTestCase
 
     private function getFakeEntity()
     {
-        return $this->entityManager->getRepository('\Headoo\ElasticSearchBundle\Tests\Entity\FakeEntity')->find(1);
+        return $this->entityManager->getRepository('\ElasticSearchBundle\Tests\Entity\FakeEntity')->find(1);
     }
 
 }

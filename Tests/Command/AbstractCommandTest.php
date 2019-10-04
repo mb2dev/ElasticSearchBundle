@@ -1,8 +1,8 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Command;
+namespace ElasticSearchBundle\Tests\Command;
 
-use Headoo\ElasticSearchBundle\Command\AbstractCommand;
+use ElasticSearchBundle\Command\AbstractCommand;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class AbstractCommandTest extends KernelTestCase
@@ -29,5 +29,4 @@ class AbstractCommandTest extends KernelTestCase
             "Completed line should be equals to LINE_LENGTH: '$sMsg'"
         );
     }
-
 }

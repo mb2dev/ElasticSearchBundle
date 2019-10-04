@@ -2,7 +2,7 @@
 
 <phpunit bootstrap="./Tests/bootstrap.php" colors="true">
     <testsuites>
-        <testsuite name="HeadooElasticSearchBundle Test Suite">
+        <testsuite name="ElasticSearchBundle Test Suite">
             <directory>./Tests/</directory>
         </testsuite>
     </testsuites>

@@ -1,19 +1,18 @@
 services:
-
-  headoo.elasticsearch.helper:
-            class: Headoo\ElasticSearchBundle\Helper\ElasticSearchHelper
+  elasticsearch.helper:
+            class: ElasticSearchBundle\Helper\ElasticSearchHelper
             arguments:
                 - '%elastica_connections%'
 
-  headoo.elasticsearch.doctrine.subscriber:
-            class: Headoo\ElasticSearchBundle\EventListener\ElasticSearchListener
+  elasticsearch.doctrine.subscriber:
+            class: ElasticSearchBundle\EventListener\ElasticSearchListener
             calls:
                 - [ setEventDispatcher, ['@event_dispatcher'] ]
-                - [ setElasticSearchHandler, ['@headoo.elasticsearch.handler'] ]
+                - [ setElasticSearchHandler, ['@elasticsearch.handler'] ]
             tags:
                 - { name: doctrine.event_subscriber }
 
-  headoo.elasticsearch.handler:
-              class: Headoo\ElasticSearchBundle\Handler\ElasticSearchHandler
+  elasticsearch.handler:
+              class: ElasticSearchBundle\Handler\ElasticSearchHandler
               calls:
                   - [ setContainer, ['@service_container'] ]
