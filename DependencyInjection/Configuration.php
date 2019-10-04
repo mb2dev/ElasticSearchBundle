@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\DependencyInjection;
+namespace ElasticSearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('headoo_elastic_search');
+        $rootNode = $treeBuilder->root('elastic_search');
 
         $rootNode->children()
                 ->arrayNode('connections')
@@ -28,6 +28,8 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('host')->end()
                             ->scalarNode('port')->end()
+                            ->scalarNode('timeout')->end()
+                            ->scalarNode('connectTimeout')->end()
                             ->end()
                         ->end()
                     ->end()

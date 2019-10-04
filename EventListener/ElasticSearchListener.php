@@ -1,11 +1,12 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\EventListener;
+namespace ElasticSearchBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Headoo\ElasticSearchBundle\Event\ElasticSearchEvent;
-use Headoo\ElasticSearchBundle\Handler\ElasticSearchHandler;
+use ElasticSearchBundle\Event\ElasticSearchEvent;
+use ElasticSearchBundle\Handler\ElasticSearchHandler;
+use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ElasticSearchListener implements EventSubscriber
@@ -100,9 +101,9 @@ class ElasticSearchListener implements EventSubscriber
             return;
         }
 
-        if (!array_key_exists('auto_event', $this->mapping[$type])) {
+        if (!array_key_exists('auto_event', $this->mapping[$type]) || !$this->mapping[$type]['auto_event']) {
             $event = new ElasticSearchEvent($action, $entity);
-            $this->eventDispatcher->dispatch("headoo.elasticsearch.event", $event);
+            $this->eventDispatcher->dispatch("elasticsearch.event", $event);
             return;
         }
 
@@ -121,6 +122,7 @@ class ElasticSearchListener implements EventSubscriber
      * @param $connectionName
      * @param $indexName
      * @param $action
+     * @throws Exception
      */
     private function _catchEvent($entity, $transformer, $connectionName, $indexName, $action)
     {

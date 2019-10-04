@@ -1,6 +1,6 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Tests\Entity;
+namespace ElasticSearchBundle\Tests\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

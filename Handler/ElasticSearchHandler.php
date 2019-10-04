@@ -1,14 +1,15 @@
 <?php
 
-namespace Headoo\ElasticSearchBundle\Handler;
+namespace ElasticSearchBundle\Handler;
 
 use Elastica\Exception\NotFoundException;
-use Headoo\ElasticSearchBundle\Helper\ElasticSearchHelper;
+use ElasticSearchBundle\Helper\ElasticSearchHelper;
+use Exception;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class ElasticSearchHandler
- * @package Headoo\ElasticSearchBundle\Handler
+ * @package ElasticSearchBundle\Handler
  */
 class ElasticSearchHandler
 {
@@ -21,21 +22,21 @@ class ElasticSearchHandler
     /** @var  array */
     protected $mappings;
 
-    /**
-     * @param Container $container
-     */
-    public function setContainer(Container $container)
+    public function __construct(Container $container, ElasticSearchHelper $elasticSearchHelper)
     {
-        $this->container                = $container;
-        $this->elasticSearchHelper      = $container->get('headoo.elasticsearch.helper');
-        $this->mappings                 = $this->container->getParameter('elastica_mappings');
+        $this->container = $container;
+        $this->elasticSearchHelper = $elasticSearchHelper;
+        $this->mappings = $this->container->getParameter('elastica_mappings');
+
     }
+
 
     /**
      * @param $entity
      * @param $transformer
      * @param $connectionName
      * @param $indexName
+     * @throws Exception
      */
     public function sendToElastic($entity, $transformer, $connectionName,$indexName)
     {
