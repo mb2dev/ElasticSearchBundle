@@ -6,9 +6,9 @@ services:
 
   elasticsearch.doctrine.subscriber:
             class: ElasticSearchBundle\EventListener\ElasticSearchListener
-            calls:
-                - [ setEventDispatcher, ['@event_dispatcher'] ]
-                - [ setElasticSearchHandler, ['@elasticsearch.handler'] ]
+            arguments:
+              - '@event_dispatcher'
+              - '@elasticsearch.handler'
             tags:
                 - { name: doctrine.event_subscriber }
 

@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use ElasticSearchBundle\Event\ElasticSearchEvent;
 use ElasticSearchBundle\Handler\ElasticSearchHandler;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -23,6 +24,7 @@ class ElasticSearchListener implements EventSubscriber
     /** @var array  */
     protected $mapping;
 
+    /** @var array $subscribedEvents */
     static protected $subscribedEvents = [
         'postPersist',
         'postUpdate',
@@ -30,26 +32,26 @@ class ElasticSearchListener implements EventSubscriber
         'preRemove'
     ];
 
-    /**
-     * @param $eventDispatcher
-     */
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
 
     /**
+     * ElasticSearchListener constructor.
+     * @param EventDispatcher $eventDispatcher
      * @param ElasticSearchHandler $elasticSearchHandler
      */
-    public function setElasticSearchHandler(ElasticSearchHandler $elasticSearchHandler)
+    public function __construct(EventDispatcher $eventDispatcher, ElasticSearchHandler $elasticSearchHandler)
     {
+        $this->eventDispatcher = $eventDispatcher;
         $this->elasticSearchHandler = $elasticSearchHandler;
+
         $this->mapping = $elasticSearchHandler->getMappings();
         foreach ($this->mapping as $key=>$mapping){
             $this->aTypes[] = $key;
         }
     }
 
+    /**
+     * @return array|string[]
+     */
     public function getSubscribedEvents()
     {
         return self::$subscribedEvents;
@@ -57,6 +59,7 @@ class ElasticSearchListener implements EventSubscriber
 
     /**
      * @param LifecycleEventArgs $args
+     * @throws Exception
      */
     public function postPersist(LifecycleEventArgs $args)
     {
@@ -65,6 +68,7 @@ class ElasticSearchListener implements EventSubscriber
 
     /**
      * @param LifecycleEventArgs $args
+     * @throws Exception
      */
     public function preRemove(LifecycleEventArgs $args)
     {
@@ -81,6 +85,7 @@ class ElasticSearchListener implements EventSubscriber
 
     /**
      * @param LifecycleEventArgs $args
+     * @throws Exception
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
@@ -90,6 +95,7 @@ class ElasticSearchListener implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      * @param $action
+     * @throws Exception
      */
     public function sendEvent(LifecycleEventArgs $args, $action)
     {
