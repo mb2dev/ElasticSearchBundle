@@ -6,6 +6,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use ElasticSearchBundle\Event\ElasticSearchEvent;
 use ElasticSearchBundle\Handler\ElasticSearchHandler;
+use Exception;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ElasticSearchListener implements EventSubscriber
@@ -121,6 +122,7 @@ class ElasticSearchListener implements EventSubscriber
      * @param $connectionName
      * @param $indexName
      * @param $action
+     * @throws Exception
      */
     private function _catchEvent($entity, $transformer, $connectionName, $indexName, $action)
     {

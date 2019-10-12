@@ -22,16 +22,14 @@ class ElasticSearchHandler
     /** @var  array */
     protected $mappings;
 
-    /**
-     * @param Container $container
-     * @throws Exception
-     */
-    public function setContainer(Container $container)
+    public function __construct(Container $container, ElasticSearchHelper $elasticSearchHelper)
     {
-        $this->container                = $container;
-        $this->elasticSearchHelper      = $container->get('elasticsearch.helper');
-        $this->mappings                 = $this->container->getParameter('elastica_mappings');
+        $this->container = $container;
+        $this->elasticSearchHelper = $elasticSearchHelper;
+        $this->mappings = $this->container->getParameter('elastica_mappings');
+
     }
+
 
     /**
      * @param $entity
