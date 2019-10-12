@@ -8,6 +8,11 @@ class ElasticSearchHelper
 {
     private $elasticaConfig;
 
+    const  HOST = 'host';
+    const PORT = 'port';
+    const TIMEOUT = 'timeout';
+    const CONNECTION_TIMEOUT = 'connectTimeout';
+
     /**
      * ElasticSearchHelper constructor.
      * @param $elasticaConfig
@@ -19,15 +24,15 @@ class ElasticSearchHelper
 
     /**
      * @param string $connectionName
-     * @return \Elastica\Client
+     * @return Client
      */
     public function getClient($connectionName)
     {
         $elasticaClient = new Client([
-            'host' => $this->elasticaConfig[$connectionName]['host'],
-            'port' => $this->elasticaConfig[$connectionName]['port'],
-            'timeout' => $this->elasticaConfig[$connectionName]['timeout'],
-            'connectTimeout' => $this->elasticaConfig[$connectionName]['connectTimeout']
+            self::HOST => $this->elasticaConfig[$connectionName][self::HOST],
+            self::PORT => $this->elasticaConfig[$connectionName][self::PORT],
+            self::TIMEOUT => $this->elasticaConfig[$connectionName][self::TIMEOUT],
+            self::CONNECTION_TIMEOUT => $this->elasticaConfig[$connectionName][self::CONNECTION_TIMEOUT]
         ]);
 
         return $elasticaClient;
@@ -35,7 +40,7 @@ class ElasticSearchHelper
 
     /**
      * @param array $servers
-     * @return \Elastica\Client
+     * @return Client
      */
     static public function getCluster(array $servers)
     {
@@ -50,7 +55,7 @@ class ElasticSearchHelper
      * @param Client $elasticaClient
      * @return bool
      */
-    static public function isConnected(\Elastica\Client $elasticaClient)
+    static public function isConnected(Client $elasticaClient)
     {
         $status = $elasticaClient->getStatus();
         $status->refresh();
